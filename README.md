@@ -1,51 +1,41 @@
-# real-estate-price-prediction
-A machine learning regression project to predict real estate prices using housing data and linear regression algorithms in Python (scikit-learn).
-# real_estate_price_prediction.py
-# Machine learning regression project to predict real estate prices using scikit-learn
+# Real Estate Price Prediction
 
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+A machine learning project to predict real estate prices using linear regression on synthetic housing data.
 
-# Example: Synthetic data creation for demonstration
-# In practice, load your real data with pd.read_csv('housing.csv')
-np.random.seed(42)
-n_samples = 120
-area = np.random.randint(600, 4000, n_samples)
-bedrooms = np.random.randint(1, 5, n_samples)
-year = np.random.randint(1990, 2021, n_samples)
-price = (area * 150) + (bedrooms * 50000) + ((year-1990) * 1000) + np.random.normal(0, 50000, n_samples)
+## Features
 
-data = pd.DataFrame({
-    'area': area,
-    'bedrooms': bedrooms,
-    'year': year,
-    'price': price
-})
+- Generates synthetic dataset with features: area, bedrooms, age
+- Trains a Linear Regression model using scikit-learn
+- Evaluates model performance with MSE and R² score
+- Predicts price for a new house sample
 
-# Features/labels
-X = data[['area', 'bedrooms', 'year']]
-y = data['price']
+## Installation
 
-# Split the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+1. Ensure Python 3.7+ is installed.
+2. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
-# Initialize and train Linear Regression model
-reg = LinearRegression()
-reg.fit(X_train, y_train)
+## Usage
 
-# Predict on the test set
-y_pred = reg.predict(X_test)
+Run the script:
+```
+python real_estate_price_prediction.py
+```
 
-# Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-print(f"Mean Squared Error: {mse:.2f}")
-print(f"R^2 Score (accuracy): {r2:.2f}")
+The script will output:
+- Mean Squared Error
+- R² Score
+- Predicted price for a sample house (1500 sq ft, 3 bedrooms, 10 years old)
 
-# Example: Predict the price for a new house
-sample_house = pd.DataFrame({'area': [2000], 'bedrooms': [3], 'year': [2015]})
-predicted_price = reg.predict(sample_house)
-print(f"Predicted price for {sample_house.iloc[0].to_dict()}: {predicted_price[0]:,.2f}")
+## Dependencies
+
+- numpy
+- pandas
+- scikit-learn
+
+## Troubleshooting
+
+- If you encounter import errors, ensure all dependencies are installed.
+- The model uses synthetic data; for real predictions, replace with actual dataset.
